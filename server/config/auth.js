@@ -1,9 +1,9 @@
 module.exports = {
     ensureAuthenticated: function(req, res, next){
-        if(req.isAuthenticated){
+        if(req.isAuthenticated()){
             return next();
         }
         req.flash('error_msg', 'Please Login to view this resource' );
-        req.redirect('/users/login');
+        res.redirect('/users/login');
     }
 };

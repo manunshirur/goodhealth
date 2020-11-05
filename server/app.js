@@ -10,9 +10,9 @@ const mysql = require('mysql');
 
 module.exports = {
     connection: mysql.createConnection({
-    host     : '127.0.0.1',
+    host     : 'localhost',
     user     : 'root',
-    password : 'password',
+    password : 'ashu',
     database : 'goodhealth'
   })
 };

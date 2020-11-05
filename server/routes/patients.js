@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const connection = require("../app.js").connection;
-
+const {ensureAuthenticated} = require("../config/auth");
 
 // List all the Patients
-router.get("/", (req, res) => {
+router.get("/", ensureAuthenticated, (req, res) => {
     query = "SELECT * FROM pri_phy_patient";
     connection.query( query, function (error, results, fields) {
         if (error) 
