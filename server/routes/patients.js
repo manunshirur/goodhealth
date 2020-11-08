@@ -29,14 +29,17 @@ router.get("/prescriptions", (req, res) => {
 });
 
 // List the presciptions of a specific Patient
-router.get("/enquiry/:name/:birthDate", (req, res) => {
-    let name = req.params.name;
+router.get("/enquiry/:firstName/:lastName/:birthDate", (req, res) => {
+    let firstName = req.params.firstName;
+    let lastName = req.params.lastName;
     let birthDate = req.params.birthDate;
-    query = `SELECT patient.name 'Patient Name',patient.ssn as 'Patient SSN', 
+    
+
+    query = `SELECT patient.name ,patient.ssn, 
             pre.phy_ssn, pre_date, pre.status, quantity, trade_name, pharm_co_name 
             FROM pri_phy_patient patient 
             JOIN prescription pre ON patient.ssn = pre.ssn
-            WHERE patient.name = '${name}' AND patient.birth_date= '${birthDate}'`;
+            WHERE patient.name = '${firstName} ${lastName}' AND '${birthDate}'`;
     connection.query(query, function (error, results, fields) {
     if (error) 
         throw error;
