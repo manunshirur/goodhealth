@@ -1,0 +1,27 @@
+<h2>Patients Prescriptions Table</h2>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>SSN</th>
+      <th>Name</th>
+      <th>Physician SSN</th>
+      <th>Date</th>
+      <th>Quantity</th>
+      <th>Trade Name</th>
+      <th>Pharma Company Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let prescriptionsData of patientsPrescriptionDataService.patientPrescriptions; let i=index">
+      <td>{{i + 1}}</td>
+      <td>{{prescriptionsData.ssn}}</td>
+      <td>{{prescriptionsData.name}}</td>
+      <td>{{prescriptionsData.phy_ssn}}</td>
+      <td>{{prescriptionsData.pre_date}}</td>
+      <td>{{prescriptionsData.quantity}}</td>
+      <td>{{prescriptionsData.trade_name}}</td>
+      <td>{{prescriptionsData.pharm_co_name}}</td>
+    </tr>
+  </tbody>
+</table>

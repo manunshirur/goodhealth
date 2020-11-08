@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { PatientsComponent } from './patients/patients.component';
 import { NavigatorComponent } from './navigator/navigator.component';
 import { DrugsComponent } from './drugs/drugs.component';
+import { PatientsPrescriptionsComponent } from './patients-prescriptions/patients-prescriptions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientsComponent,
     NavigatorComponent,
-    DrugsComponent
+    DrugsComponent,
+    PatientsPrescriptionsComponent
   ],
   imports: [
     BrowserModule,

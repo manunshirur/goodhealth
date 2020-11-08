@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 
 // List all the Prescriptions
 router.get("/prescriptions", (req, res) => {
-    query = `SELECT patient.name 'Patient Name',patient.ssn as 'Patient SSN', 
+    query = `SELECT patient.name, patient.ssn, 
             pre.phy_ssn, pre_date, quantity, trade_name, pharm_co_name 
             FROM pri_phy_patient patient 
             LEFT JOIN prescription pre ON patient.ssn = pre.ssn`;
