@@ -1,17 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const mysql = require('mysql');
+const connection = require("../app.js").connection;
+const {ensureAuthenticated} = require("../config/auth");
 
-const connection = mysql.createConnection({
-    host     : '127.0.0.1',
-    user     : 'root',
-    password : 'password',
-    database : 'goodhealth'
-  });
-
-// List all the Patients
+// List all the Contracts
 router.get("/", (req, res) => {
-    connection.query('SELECT * FROM doctor', function (error, results, fields) {
+    query = `SELECT * FROM goodhealth.contract c
+    JOIN pharmacy p ON c.pharm_id = p.pharm_id
+    JOIN pharm_co pc ON c.pharm_co_name = pc.name`;
+    connection.query( query, function (error, results, fields) {
         if (error) 
             throw error;
         else
@@ -19,13 +16,45 @@ router.get("/", (req, res) => {
     });
 });
 
-// List all the Patients
-router.get("/:name", (req, res) => {
-    connection.query('SELECT * FROM doctor where yearsOfExperience=?', [req.params.name], function (error, results, fields) {
+
+// Add a Contract
+router.post("/add", (req, res) => {
+    let {pharm_id, start_date, end_date, text, supervisor, pharm_co_name} = req.body;
+    query = `INSERT INTO contract VALUES \
+            ('${pharm_id}','${start_date}','${end_date}','${text}','${supervisor}','${pharm_co_name}')`;
+    connection.query(query, function (error, results, fields) {
     if (error) 
         throw error;
     else
         res.send(results);
     });
 });
+
+// Update a Contract
+router.post("/update", (req, res) => {
+    let {pharm_id, start_date, end_date, text, supervisor, pharm_co_name} = req.body;
+    query = `UPDATE contract SET \
+            start_date= '${start_date}',end_date= '${end_date}', text= '${text}',supervisor= '${supervisor}'
+            WHERE pharm_id= '${pharm_id}' AND pharm_co_name= '${pharm_co_name}'`;
+    connection.query(query, function (error, results, fields) {
+    if (error) 
+        throw error;
+    else
+        res.send(results);
+    });
+});
+
+
+// Delete a Contract
+router.delete("/delete/:pharm_id/:pharm_co_name", (req, res) => {
+    let {pharm_id, pharm_co_name} = req.params;
+    query = `DELETE FROM contract WHERE pharm_id = '${pharm_id}' AND pharm_co_name= '${pharm_co_name}'`;
+    connection.query(query, function (error, results, fields) {
+        if (error) 
+            res.send("Error: "+ error);
+        else
+            res.send("Number of Rows Deleted: "+ results.affectedRows);
+    });
+});
+
 module.exports = router;

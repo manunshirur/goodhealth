@@ -6,18 +6,20 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 // const oracledb = require('oracledb');
+const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
 module.exports = {
     connection: mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
-    password : 'ashu',
+    password : 'password',
     database : 'goodhealth'
   })
 };
 
 const app = express();
+app.use(bodyParser.json())
 
 const PORT = process.env.PORT || 3000;
 
@@ -79,6 +81,8 @@ app.use(express.static(path.join(__dirname, "/public"), options));
 app.use("/", require('./routes/index')); 
 app.use("/users", require('./routes/users')); 
 app.use("/patients", require('./routes/patients')); 
+app.use("/doctors", require('./routes/doctors')); 
+app.use("/prescriptions", require('./routes/prescriptions')); 
 app.use("/contracts", require('./routes/contracts')); 
 
 
