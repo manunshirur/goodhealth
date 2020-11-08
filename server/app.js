@@ -8,12 +8,13 @@ const passport = require("passport");
 // const oracledb = require('oracledb');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const cors = require('cors');
 
 module.exports = {
     connection: mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
-    password : 'password',
+    password : 'ashu',
     database : 'goodhealth'
   })
 };
@@ -37,6 +38,8 @@ mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
 // EJS
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
+
+app.use(cors());
 
 // Bodyparser - for parsing the form data
 app.use(express.urlencoded({extended: false}));
