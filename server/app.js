@@ -83,6 +83,7 @@ app.use("/users", require('./routes/users'));
 app.use("/patients", require('./routes/patients')); 
 app.use("/doctors", require('./routes/doctors')); 
 app.use("/prescriptions", require('./routes/prescriptions')); 
+app.use("/drugs", require('./routes/drugs')); 
 app.use("/contracts", require('./routes/contracts')); 
 
 
