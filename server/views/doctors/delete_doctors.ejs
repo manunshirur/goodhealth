@@ -1,5 +1,6 @@
 <%- include("../header") -%>
-<div class="container">    
+<div class="container">
+    <%- include('../partials/messages'); %>
     <table id="table" data-toggle="table" data-search="true" class="table-bordered">
         <thead class="thead-dark">
           <tr>
@@ -8,6 +9,7 @@
               <th scope="col">Name</th>
               <th scope="col">Specialty </th>
               <th scope="col">Years of Experience</th>
+              <th scope="col">Action</th>
           </tr>
           </thead>
           <tbody class="table-light"> 
@@ -18,6 +20,7 @@
                   <td><%=res[i].name%></td>
                   <td><%=res[i].specialty%></td>
                   <td><%=res[i].yearsOfExperience%></td>
+                  <td><a href="/doctors/delete/<%=res[i].ssn%>" class="btn btn-danger btn-md" type="button">Delete</a></td>
                   </tr>
             <%};%>
         </tbody>

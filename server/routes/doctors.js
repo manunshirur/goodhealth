@@ -29,29 +29,51 @@ router.get("/enquiry/:name/:ssn", (req, res) => {
     });
 });
 
-// Add a Doctor
+// Add a Doctor (GET)
+
+router.get("/add", (req, res) => {
+    res.render("doctors/add_doctor");
+});
+
+// Add a Doctor (POST)
+
 router.post("/add", (req, res) => {
-    let {ssn, name, speciality, yearsOfExperience} = req.body;
+    let {ssn, name, specialty, yearsOfExperience} = req.body;
+
     query = `INSERT INTO doctor VALUES \
-            ('${ssn}','${name}','${speciality}','${yearsOfExperience}')`;
+            ('${ssn}','${name}','${specialty}','${yearsOfExperience}')`;
     connection.query(query, function (error, results, fields) {
-    if (error) 
-        throw error;
-    else
-        res.send(results);
+        if (error) 
+            throw error;
+        else {
+            req.flash("doctor_add_success_msg", "Doctor added successfully");
+            res.redirect("/doctors/add");
+        }
     });
 });
 
 
-// Delete a Doctor
-router.delete("/delete/:name/:ssn", (req, res) => {
-    let {name, ssn} = req.params;
-    query = `DELETE FROM doctor WHERE name = '${name}' AND ssn= '${ssn}'`;
+// Delete a Doctor (GET)
+router.get("/delete", (req, res) => {
+    query = "SELECT * FROM doctor";
+    connection.query( query, function (error, results, fields) {
+        if (error) 
+            throw error;
+        else
+            res.render("doctors/delete_doctors", {res:results});
+    });
+});
+
+router.get("/delete/:ssn", (req, res) => {
+    let { ssn } = req.params;
+    query = `DELETE FROM doctor WHERE ssn= '${ssn}'`;
     connection.query(query, function (error, results, fields) {
         if (error) 
             res.send("Error: "+ error);
-        else
-            res.send("Number of Rows Deleted: "+ results.affectedRows);
+        else {
+            req.flash("doctor_delete_success_msg", "Doctor deleted successfully");
+            res.redirect("/doctors/delete");
+        }
     });
 });
 

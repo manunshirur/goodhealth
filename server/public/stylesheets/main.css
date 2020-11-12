@@ -20,6 +20,11 @@ body{
 .table-light{
     background-color: #ececf6;
 }
+
+.nav-link {
+    margin-right: 20px;
+}
+
 /* tbody{
     background-color:#d4dcf7 !important;
 } */

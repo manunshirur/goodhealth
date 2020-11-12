@@ -63,6 +63,8 @@ app.use((req, res, next) => {
     res.locals.success_msg = req.flash("success_msg");
     res.locals.error_msg = req.flash("error_msg");
     res.locals.error = req.flash("error");
+    res.locals.doctor_add_success_msg = req.flash("doctor_add_success_msg");
+    res.locals.doctor_delete_success_msg = req.flash("doctor_delete_success_msg");
     next();
 });
 

@@ -1,0 +1,44 @@
+<%- include("../header") -%>
+<div class="container">
+    <%- include('../partials/messages'); %>
+    <form name="doctor-add-form" method="POST" action="/doctors/add">
+        <!-- First Row -->
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="ssn">SSN</label>
+            <input type="text" class="form-control" name="ssn" id="ssn" placeholder="XXX-XX-XXXX" pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="FirstName LastName" required>
+          </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="specialty">Specialty</label>
+              <select name="specialty" id="specialty" class="form-control">
+                <option selected value="Surgeon">Surgeon</option>
+                <option value="Cardiologist">Cardiologist</option>
+                <option value="Neurologist">Neurologist</option>
+                <option value="Pediatrician">Pediatrician</option>
+                <option value="Psychologist">Psychologist</option>
+                <option value="Dentist">Dentist</option>
+                <option value="Dermatologist">Dermatologist</option>
+                <option value="Orthodontist">Orthodontist</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="yearsOfExperience">Years of Experience</label>
+              <input type="number" class="form-control" name="yearsOfExperience" id="yearsOfExperience" placeholder="Years of Experience" required>
+            </div>
+        </div>
+
+        
+        <button type="submit" class="btn btn-primary">Add Doctor</button>
+      </form>
+</div>
+
+
