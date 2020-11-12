@@ -1,0 +1,25 @@
+.navbar-brand img {
+    width: 100px;
+    height: 33px;
+}
+
+ul li {
+    display: inline;
+}
+
+ul li a {
+    color: rgb(33, 37, 41);
+}
+
+ul li a {
+    text-decoration: none;
+}
+
+.nav-item {
+    padding: 15px 5px;
+}
+
+.nav-item:hover {
+    cursor: pointer;
+    background-color: #ccc;
+}

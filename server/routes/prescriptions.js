@@ -7,16 +7,20 @@ const {ensureAuthenticated} = require("../config/auth");
 router.get("/:status/:prescription_date?", (req, res) => {
     let status = req.params.status;
     let prescription_date = req.params.prescription_date;
-    query = `SELECT * FROM prescription WHERE LOWER(status)= LOWER('${status}')`;
+    query = `SELECT pt.name as patient, d.name as doctor, pre_date, quantity, trade_name, pharm_co_name, status FROM prescription ps
+            JOIN pri_phy_patient pt on pt.ssn = ps.ssn
+            JOIN doctor d on d.ssn = ps.phy_ssn WHERE LOWER(status)= LOWER('${status}')`;
     if (prescription_date){
         console.log(query);
-        query = `SELECT * FROM prescription WHERE LOWER(status)= LOWER('${status}') AND pre_date = '${prescription_date}'`;
+        query = `SELECT pt.name as patient, d.name as doctor, pre_date, quantity, trade_name, pharm_co_name, status FROM prescription ps
+                JOIN pri_phy_patient pt on pt.ssn = ps.ssn
+                JOIN doctor d on d.ssn = ps.phy_ssn WHERE LOWER(status)= LOWER('${status}') AND pre_date = '${prescription_date}'`;
     } 
     connection.query( query, function (error, results, fields) {
         if (error) 
             throw error;
         else
-            res.send(results);
+            res.render("prescriptions/statuswise",{res:results});
     });
 });
 

@@ -10,33 +10,37 @@ router.get("/", (req, res) => {
         if (error) 
             throw error;
         else
-            res.send(results);
+            res.render("patients/all_patients", {res:results});
     });
 });
 
 // List all the Prescriptions
 router.get("/prescriptions", (req, res) => {
-    query = `SELECT patient.name 'Patient Name',patient.ssn as 'Patient SSN', 
-            pre.phy_ssn, pre_date, quantity, trade_name, pharm_co_name 
+    query = `SELECT patient.name, patient.ssn, 
+            pre.phy_ssn, d.name as doctorname, pre_date, quantity, trade_name, pharm_co_name 
             FROM pri_phy_patient patient 
-            LEFT JOIN prescription pre ON patient.ssn = pre.ssn`;
+            LEFT JOIN prescription pre ON patient.ssn = pre.ssn
+            LEFT JOIN Doctor d ON patient.phy_ssn = d.ssn`;
     connection.query(query, function (error, results, fields) {
     if (error) 
         throw error;
     else
-        res.send(results);
+        res.render("patients/all_patients_prescriptions", {res:results});
     });
 });
 
 // List the presciptions of a specific Patient
-router.get("/enquiry/:name/:birthDate", (req, res) => {
-    let name = req.params.name;
+router.get("/enquiry/:firstName/:lastName/:birthDate", (req, res) => {
+    let firstName = req.params.firstName;
+    let lastName = req.params.lastName;
     let birthDate = req.params.birthDate;
-    query = `SELECT patient.name 'Patient Name',patient.ssn as 'Patient SSN', 
+    
+
+    query = `SELECT patient.name ,patient.ssn, 
             pre.phy_ssn, pre_date, pre.status, quantity, trade_name, pharm_co_name 
             FROM pri_phy_patient patient 
             JOIN prescription pre ON patient.ssn = pre.ssn
-            WHERE patient.name = '${name}' AND patient.birth_date= '${birthDate}'`;
+            WHERE patient.name = '${firstName} ${lastName}' AND '${birthDate}'`;
     connection.query(query, function (error, results, fields) {
     if (error) 
         throw error;

@@ -5,14 +5,15 @@ const {ensureAuthenticated} = require("../config/auth");
 
 // List all the Contracts
 router.get("/", (req, res) => {
-    query = `SELECT * FROM goodhealth.contract c
-    JOIN pharmacy p ON c.pharm_id = p.pharm_id
-    JOIN pharm_co pc ON c.pharm_co_name = pc.name`;
+    query = `SELECT  p.name, c.pharm_co_name, c.supervisor, c.text, start_date, end_date
+            FROM goodhealth.contract c
+            JOIN pharmacy p ON c.pharm_id = p.pharm_id
+            JOIN pharm_co pc ON c.pharm_co_name = pc.name`;
     connection.query( query, function (error, results, fields) {
         if (error) 
             throw error;
         else
-            res.send(results);
+            res.render("contracts/all_contracts", {res:results});
     });
 });
 

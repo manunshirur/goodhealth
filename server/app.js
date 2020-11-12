@@ -8,6 +8,7 @@ const passport = require("passport");
 // const oracledb = require('oracledb');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const cors = require('cors');
 
 module.exports = {
     connection: mysql.createConnection({
@@ -38,10 +39,10 @@ mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
 
+app.use(cors());
+
 // Bodyparser - for parsing the form data
 app.use(express.urlencoded({extended: false}));
-
-
   
 // Express Session middleware
 app.use(session({
@@ -76,7 +77,6 @@ let options = {
 
 app.use(express.static(path.join(__dirname, "/public"), options));
 
-
 // Routes
 app.use("/", require('./routes/index')); 
 app.use("/users", require('./routes/users')); 
@@ -86,7 +86,4 @@ app.use("/prescriptions", require('./routes/prescriptions'));
 app.use("/drugs", require('./routes/drugs')); 
 app.use("/contracts", require('./routes/contracts')); 
 
-
-app.listen(PORT, console.log(`Server started on  port ${PORT}`));
-
-
+app.listen(PORT, console.log(`Server started on port ${PORT}`));

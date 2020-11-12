@@ -10,5 +10,9 @@ router.get("/dashboard", ensureAuthenticated, (req, res) => res.render("dashboar
     name: req.user.name
 }));
 
+// test 
+router.get("/test", ensureAuthenticated, (req, res) => res.render("test", {
+    name: req.user.name
+}));
 
 module.exports = router;

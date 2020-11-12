@@ -1,0 +1,25 @@
+<%- include("../header") -%>
+<div class="container">    
+    <table id="table" data-toggle="table" data-search="true" class="table-bordered">
+        <thead class="thead-dark">
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">Drug Name</th>
+              <th scope="col">Formula</th>
+              <th scope="col">Manufacturer </th>
+          </tr>
+          </thead>
+          <tbody class="table-light"> 
+            <% for (var i = 0; i < res.length; i++) {%>
+                  <tr>
+                  <th scope="row"><%=i+1%></th>
+                  <td><%=res[i].drug_name%></td>
+                  <td><%=res[i].formula%></td>
+                  <td><%=res[i].pharm_co_name%></td>
+                  </tr>
+            <%};%>
+        </tbody>
+    </table>
+</div>
+
+

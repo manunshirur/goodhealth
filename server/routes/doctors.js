@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
         if (error) 
             throw error;
         else
-            res.send(results);
+            res.render("doctors/all_doctors", {res:results});
     });
 });
 
@@ -25,7 +25,7 @@ router.get("/enquiry/:name/:ssn", (req, res) => {
     if (error) 
         throw error;
     else
-        res.send(results);
+        res.render("doctors/all_doctors", {res:results});
     });
 });
 
