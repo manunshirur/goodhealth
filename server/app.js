@@ -7,16 +7,11 @@ const session = require("express-session");
 const passport = require("passport");
 // const oracledb = require('oracledb');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
 const cors = require('cors');
 
+// Creating Connection only once and shared among all the routes
 module.exports = {
-    connection: mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'password',
-    database : 'goodhealth'
-  })
+  connection: require("./config/keys.js").connect_to_mysql()
 };
 
 const app = express();
@@ -32,7 +27,7 @@ const db = require("./config/keys").MongoURI;
 
 // DB Connection
 mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => console.log("Connected "))
+    .then(() => console.log("Connected"))
     .catch(err => console.log(err));
 
 // EJS
