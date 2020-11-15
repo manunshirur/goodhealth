@@ -31,17 +31,38 @@ router.post("/add", (req, res) => {
     });
 });
 
-// Update a Contract
+
+// Update a Contract (PUT)
+
+router.get("/update", (req, res) => {
+    query = `SELECT p.pharm_id, p.name, c.pharm_co_name, 
+            c.supervisor, c.text, start_date, end_date
+            FROM goodhealth.contract c
+            JOIN pharmacy p ON c.pharm_id = p.pharm_id
+            JOIN pharm_co pc ON c.pharm_co_name = pc.name`;
+    connection.query( query, function (error, results, fields) {
+        if (error) 
+            throw error;
+        else
+            res.render("contracts/update_contracts", {res:results});
+    });
+});
+
+// Update a Contract (PUT)
+
 router.post("/update", (req, res) => {
     let {pharm_id, start_date, end_date, text, supervisor, pharm_co_name} = req.body;
     query = `UPDATE contract SET \
             start_date= '${start_date}',end_date= '${end_date}', text= '${text}',supervisor= '${supervisor}'
             WHERE pharm_id= '${pharm_id}' AND pharm_co_name= '${pharm_co_name}'`;
+
     connection.query(query, function (error, results, fields) {
-    if (error) 
-        throw error;
-    else
-        res.send(results);
+        if (error) 
+            throw error;
+        else {
+            req.flash("contract_update_success_msg", "Contract updated successfully");
+            res.redirect("/contracts/update");
+        }
     });
 });
 

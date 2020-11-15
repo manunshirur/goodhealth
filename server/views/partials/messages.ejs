@@ -57,3 +57,32 @@
         </button>
     </div>
 <% } %>
+
+<!-- Patient Add Success Message -->
+<% if( patient_add_success_msg != "") { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><%= patient_add_success_msg %></strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<% } %>
+
+<!-- Patient Delete Success Message -->
+<% if( patient_delete_success_msg != "") { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><%= patient_delete_success_msg %></strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<% } %>
+
+<% if( contract_update_success_msg != "") { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><%= contract_update_success_msg %></strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<% } %>

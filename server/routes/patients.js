@@ -49,30 +49,63 @@ router.get("/enquiry/:firstName/:lastName/:birthDate", (req, res) => {
     });
 });
 
-// Add a Patient
-router.post("/add", (req, res) => {
-    let {ssn, name, birth_date, address, phy_ssn} = req.body;
-    query = `INSERT INTO pri_phy_patient VALUES \
-            ('${ssn}','${name}','${birth_date}','${address}','${phy_ssn}')`;
-    connection.query(query, function (error, results, fields) {
-    if (error) 
-        throw error;
-    else
-        res.send(results);
+
+
+// Add a Patient (GET)
+
+router.get("/add", (req, res) => {
+    query = "SELECT ssn, name FROM doctor";
+    connection.query( query, function (error, results, fields) {
+        if (error) 
+            throw error;
+        else
+            res.render("patients/add_patient", {res:results});
     });
 });
 
 
-// Delete a Patient
-router.delete("/delete/:name/:birthDate", (req, res) => {
-    console.log(`${req.params.name}`);
-    query = `DELETE FROM pri_phy_patient patient 
-            WHERE patient.name = '${req.params.name}' AND patient.birth_date= '${req.params.birthDate}'`;
+// Add a Patient (POST)
+
+router.post("/add", (req, res) => {
+    let {ssn, name, birth_date, address, pri_phy_ssn} = req.body;
+
+    query = `INSERT INTO pri_phy_patient VALUES \
+            ('${ssn}','${name}','${birth_date}','${address}','${pri_phy_ssn}')`;
+    console.log(query);            
+    connection.query(query, function (error, results, fields) {
+        if (error) 
+            throw error;
+        else {
+            req.flash("patient_add_success_msg", "Patient added successfully");
+            res.redirect("/patients/add");
+        }
+    });
+});
+
+
+// Delete a Doctor (GET)
+router.get("/delete", (req, res) => {
+    query = "SELECT * FROM pri_phy_patient";
+    connection.query( query, function (error, results, fields) {
+        if (error) 
+            throw error;
+        else
+            res.render("patients/delete_patients", {res:results});
+    });
+});
+
+router.get("/delete/:ssn", (req, res) => {
+    let { ssn } = req.params;
+    query = `DELETE FROM pri_phy_patient WHERE ssn= '${ssn}'`;
     connection.query(query, function (error, results, fields) {
         if (error) 
             res.send("Error: "+ error);
-        else
-            res.send("Number of Rows Deleted: "+ results.affectedRows);
+        else {
+            req.flash("patient_delete_success_msg", "Patient deleted successfully");
+            res.redirect("/patients/delete");
+        }
     });
 });
+
+
 module.exports = router;
