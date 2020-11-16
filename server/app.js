@@ -63,6 +63,10 @@ app.use((req, res, next) => {
     res.locals.patient_add_success_msg = req.flash("patient_add_success_msg");
     res.locals.patient_delete_success_msg = req.flash("patient_delete_success_msg");
     res.locals.contract_update_success_msg = req.flash("contract_update_success_msg");
+    res.locals.contract_delete_success_msg = req.flash("contract_delete_success_msg");
+    res.locals.contract_add_success_msg = req.flash("contract_add_success_msg");
+    res.locals.presciption_delete_success_msg = req.flash("presciption_delete_success_msg");
+    res.locals.presciption_add_success_msg = req.flash("presciption_add_success_msg");
     next();
 });
 

@@ -1,6 +1,7 @@
 <%- include("../header") -%>
-<div class="container">    
-    <h2 class="table-title">All Contracts</h2>
+<div class="container">        
+    <h2 class="table-title">Delete Contract</h2>   
+    <%- include('../partials/messages'); %>
     <table id="table" data-toggle="table" data-search="true" class="table-bordered">
         <thead class="thead-dark">
           <tr>
@@ -11,6 +12,7 @@
               <th scope="col">Description</th>
               <th scope="col">Start Date</th>
               <th scope="col">End Date</th>
+              <th scope="col">Action</th>
           </tr>
           </thead>
           <tbody class="table-light"> 
@@ -23,6 +25,7 @@
                   <td><%=res[i].text%></td>
                   <td><%=res[i].start_date.toLocaleDateString("en-US")%></td>
                   <td><%=res[i].end_date.toLocaleDateString("en-US")%></td>
+                  <td><a href="/contracts/delete/<%=res[i].pharm_id%>/<%=res[i].pharm_co_name%>" class="btn btn-danger btn-md" type="button">Delete</a></td>
                   </tr>
             <%};%>
         </tbody>

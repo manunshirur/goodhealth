@@ -78,9 +78,51 @@
     </div>
 <% } %>
 
+<!-- Contract Update Success Message -->
 <% if( contract_update_success_msg != "") { %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong><%= contract_update_success_msg %></strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<% } %>
+
+<!-- Contract Delete Success Message -->
+<% if( contract_delete_success_msg != "") { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><%= contract_delete_success_msg %></strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<% } %>
+
+<!-- Contract Add Success Message -->
+<% if( contract_add_success_msg != "") { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><%= contract_add_success_msg %></strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<% } %>
+
+<!-- Prescription Delete Success Message -->
+<% if( presciption_delete_success_msg != "") { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><%= presciption_delete_success_msg %></strong> 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<% } %>
+
+
+<!-- Prescription Add Success Message -->
+<% if( presciption_add_success_msg != "") { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><%= presciption_add_success_msg %></strong> 
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

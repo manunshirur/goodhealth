@@ -25,6 +25,19 @@ body{
     margin-right: 20px;
 }
 
+h2.table-title {
+    font-size: 2rem;
+    text-align: center;
+    color: #2849bf;
+    font-weight: bold;
+    text-decoration: solid;
+    font-style: italic;
+}
+
+form label {
+    font-weight: bold;
+}
+
 /* tbody{
     background-color:#d4dcf7 !important;
 } */

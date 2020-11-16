@@ -1,0 +1,62 @@
+<%- include("../header") -%>
+<div class="container">
+    <h2 class="table-title">Add Prescription</h2>   
+    <%- include('../partials/messages'); %>
+    <form name="contract-add-form" method="POST" action="/prescriptions/add">
+        <!-- First Row -->
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="ssn">Patient Name (SSN)</label>
+            <select name="ssn" id="ssn" class="form-control">
+              <% for (var i = 0; i < patientInfo.length; i++) {%>
+                  <option value="<%=patientInfo[i].ssn%>"><%=patientInfo[i].name%> (<%=patientInfo[i].ssn%>) </option>
+              <%};%>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="phy_ssn">Physician Name (SSN) </label>
+            <select name="phy_ssn" id="phy_ssn" class="form-control">
+              <% for (var i = 0; i < doctorInfo.length; i++) {%>
+                <option value="<%=doctorInfo[i].ssn%>"><%=doctorInfo[i].name%> (<%=doctorInfo[i].ssn%> )</option>
+              <%};%>
+            </select>
+          </div>
+        </div>
+
+        <!-- Second Row -->
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="drug_pharm_co_name">Drug - Pharmaceutical Company Name</label>
+            <select name="drug_pharm_co_name" id="drug_pharm_co_name" class="form-control">
+              <% for (var i = 0; i < drugInfo.length; i++) {%>
+                  <option value="<%=drugInfo[i].trade_name%>_<%=drugInfo[i].pharm_co_name%>"><%=drugInfo[i].trade_name%> - <%=drugInfo[i].pharm_co_name%> </option>
+              <%};%>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="quantity">Quantity</label>
+            <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Quantity" min="1" required>
+          </div>
+        </div>
+
+        <!-- Third Row -->
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="pre_date">Prescription Date</label>
+            <input type="date" class="form-control" name="pre_date" id="pre_date" placeholder="Prescription Date" required>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="drop_off_time">DropOff Time</label>
+            <input type="datetime-local" class="form-control" name="drop_off_time" id="drop_off_time" placeholder="DropOff Time" required>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="pick_up_time">Pickup Time</label>
+            <input type="datetime-local" class="form-control" name="pick_up_time" id="pick_up_time" placeholder="Pickup Time" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Prescription</button>
+      </form>
+</div>
+
+

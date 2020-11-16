@@ -1,6 +1,7 @@
 <%- include("../header") -%>
 <div class="container">   
-    <h2 class="table-title">All Presciptions with '<%=status%>' status</h2>
+    <h2 class="table-title">Delete Presciptions</h2>
+    <%- include('../partials/messages'); %>
     <table id="table" data-toggle="table" data-search="true" class="table-bordered">
         <thead class="thead-dark">
           <tr>
@@ -8,10 +9,11 @@
               <th scope="col">Patient Name</th>
               <th scope="col">Doctor Name</th>
               <th scope="col">Prescription Date</th>
-              <th scope="col">Quantity</th>
+              <th scope="col">Qty</th>
               <th scope="col">Drug</th>
               <th scope="col">Manufacturer</th>
               <th scope="col">Status</th>
+              <th scope="col">Action</th>
           </tr>
           </thead>
           <tbody class="table-light"> 
@@ -25,6 +27,7 @@
                   <td><%=res[i].trade_name%></td>
                   <td><%=res[i].pharm_co_name%></td>
                   <td><%=res[i].status%></td>
+                  <td><a href="/prescriptions/delete/<%=res[i].pre_id%>" class="btn btn-danger btn-md" type="button">Delete</a></td>
                   </tr>
             <%};%>
         </tbody>
