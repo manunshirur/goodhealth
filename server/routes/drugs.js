@@ -36,7 +36,8 @@ router.get("/expensive_drugs", ensureAuthenticated, (req, res) => {
             FROM sell 
             GROUP BY trade_name) temp
             JOIN pharmacy p ON p.pharm_id = s.pharm_id
-            WHERE temp.trade_name = s.trade_name AND temp.price = s.price`;
+            WHERE temp.trade_name = s.trade_name AND temp.price = s.price
+            ORDER BY temp.price DESC, temp.trade_name`;
     connection.query(query, function (error, results, fields) {
         if (error) 
             res.render("error");
@@ -54,7 +55,8 @@ router.get("/inexpensive_drugs", ensureAuthenticated, (req, res) => {
             FROM sell 
             GROUP BY trade_name) temp
             JOIN pharmacy p ON p.pharm_id = s.pharm_id
-            WHERE temp.trade_name = s.trade_name AND temp.price = s.price`;
+            WHERE temp.trade_name = s.trade_name AND temp.price = s.price
+            ORDER BY temp.price ASC, temp.trade_name`;
     connection.query(query, function (error, results, fields) {
         if (error) 
             res.render("error");

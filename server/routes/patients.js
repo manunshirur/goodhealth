@@ -93,8 +93,10 @@ router.get("/delete/:ssn", ensureAuthenticated, (req, res) => {
     let { ssn } = req.params;
     query = `DELETE FROM pri_phy_patient WHERE ssn= '${ssn}'`;
     connection.query(query, function (error, results, fields) {
-        if (error) 
+        if (error) {
+            console.log(error);
             res.render("error"); 
+        }
         else {
             req.flash("patient_delete_success_msg", "Patient Deleted Successfully!!!");
             res.redirect("/patients/delete");

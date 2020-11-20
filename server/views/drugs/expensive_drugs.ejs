@@ -5,8 +5,8 @@
         <thead class="thead-dark">
           <tr>
               <th scope="col">#</th>
-              <th scope="col">Pharmacy Name </th>
               <th scope="col">Drug Name</th>
+              <th scope="col">Pharmacy Name </th>
               <th scope="col">Manufacturer</th>
               <th scope="col">price </th>
           </tr>
@@ -15,8 +15,8 @@
             <% for (var i = 0; i < res.length; i++) {%>
                   <tr>
                   <th scope="row"><%=i+1%></th>
-                  <td><%=res[i].name%></td>
                   <td><%=res[i].trade_name%></td>
+                  <td><%=res[i].name%></td>
                   <td><%=res[i].pharm_co_name%></td>
                   <td>$<%=res[i].price%></td>
                   </tr>

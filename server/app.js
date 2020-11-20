@@ -7,6 +7,7 @@ const session = require("express-session");
 const passport = require("passport");
 // const oracledb = require('oracledb');
 const bodyParser = require('body-parser');
+const {ensureAuthenticated} = require("./config/auth");
 const cors = require('cors');
 
 // Creating Connection only once and shared among all the routes
@@ -70,6 +71,14 @@ app.use((req, res, next) => {
     next();
 });
 
+
+// Included the following to avoid page rendering on back button after logout
+app.use(function(req, res, next) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  next();
+});
+
+
 // Serving static files
 // Options while serving static files
 let options = {
@@ -80,6 +89,8 @@ let options = {
 };
 
 app.use(express.static(path.join(__dirname, "/public"), options));
+
+
 
 // Routes
 app.use("/", require('./routes/index')); 

@@ -32,6 +32,7 @@ h2.table-title {
     font-weight: bold;
     text-decoration: solid;
     font-style: italic;
+    margin: 0.5% 0%;
 }
 
 form label {
