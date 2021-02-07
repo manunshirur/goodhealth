@@ -5,7 +5,7 @@ const {ensureAuthenticated} = require("../config/auth");
 
 // List all the Contracts
 router.get("/", ensureAuthenticated, (req, res) => {
-    query = `SELECT  p.name, c.pharm_co_name, c.supervisor, c.text, start_date, end_date
+    let query = `SELECT  p.name, c.pharm_co_name, c.supervisor, c.text, start_date, end_date
             FROM goodhealth.contract c
             JOIN pharmacy p ON c.pharm_id = p.pharm_id
             JOIN pharm_co pc ON c.pharm_co_name = pc.name`;
@@ -20,12 +20,12 @@ router.get("/", ensureAuthenticated, (req, res) => {
 
 // Add a Contract
 router.get("/add", ensureAuthenticated, (req, res) => {
-    query = `SELECT pharm_id, name FROM pharmacy`;
+    let query = `SELECT pharm_id, name FROM pharmacy`;
     connection.query(query, function (error, results, fields) {
         if (error) 
             res.render("error");
         else {
-            getPhramaCoNameQuery = `SELECT name FROM pharm_co`;
+            let getPhramaCoNameQuery = `SELECT name FROM pharm_co`;
             connection.query(getPhramaCoNameQuery, function (error, result, fields) {
                 if (error) 
                     res.render("error");
@@ -40,11 +40,11 @@ router.get("/add", ensureAuthenticated, (req, res) => {
 // Add a Contract
 router.post("/add", ensureAuthenticated, (req, res) => {
     let {pharm_id, start_date, end_date, text, supervisor, pharm_co_name} = req.body;
-    query = `INSERT INTO contract VALUES \
+    let query = `INSERT INTO contract VALUES \
             ('${pharm_id}','${start_date}','${end_date}','${text}','${supervisor}','${pharm_co_name}')`;
     connection.query(query, function (error, results, fields) {
         if (error) 
-        res.render("error");
+            res.render("error");
         else {
             req.flash("contract_add_success_msg", "Contract Added successfully!!!");
             res.redirect("/contracts/add");
@@ -56,7 +56,7 @@ router.post("/add", ensureAuthenticated, (req, res) => {
 // Update a Contract (PUT)
 
 router.get("/update", ensureAuthenticated,  (req, res) => {
-    query = `SELECT p.pharm_id, p.name, c.pharm_co_name, 
+    let query = `SELECT p.pharm_id, p.name, c.pharm_co_name, 
             c.supervisor, c.text, start_date, end_date
             FROM goodhealth.contract c
             JOIN pharmacy p ON c.pharm_id = p.pharm_id
@@ -73,7 +73,7 @@ router.get("/update", ensureAuthenticated,  (req, res) => {
 
 router.post("/update", ensureAuthenticated, (req, res) => {
     let {pharm_id, start_date, end_date, text, supervisor, pharm_co_name} = req.body;
-    query = `UPDATE contract SET \
+    let query = `UPDATE contract SET \
             start_date= '${start_date}',end_date= '${end_date}', text= '${text}',supervisor= '${supervisor}'
             WHERE pharm_id= '${pharm_id}' AND pharm_co_name= '${pharm_co_name}'`;
 
@@ -89,7 +89,7 @@ router.post("/update", ensureAuthenticated, (req, res) => {
 
 // Delete a Contract (GET)
 router.get("/delete", ensureAuthenticated, (req, res) => {
-    query =`SELECT p.pharm_id, p.name, c.pharm_co_name, 
+    let query =`SELECT p.pharm_id, p.name, c.pharm_co_name, 
     c.supervisor, c.text, start_date, end_date
     FROM goodhealth.contract c
     JOIN pharmacy p ON c.pharm_id = p.pharm_id
@@ -105,7 +105,7 @@ router.get("/delete", ensureAuthenticated, (req, res) => {
 // Delete a Contract
 router.get("/delete/:pharm_id/:pharm_co_name", ensureAuthenticated, (req, res) => {
     let {pharm_id, pharm_co_name} = req.params;
-    query = `DELETE FROM contract WHERE pharm_id = '${pharm_id}' AND pharm_co_name= '${pharm_co_name}'`;
+    let query = `DELETE FROM contract WHERE pharm_id = '${pharm_id}' AND pharm_co_name= '${pharm_co_name}'`;
     connection.query(query, function (error, results, fields) {
         if (error) 
             res.render("error");

@@ -5,7 +5,7 @@ const {ensureAuthenticated} = require("../config/auth");
 
 // List all the Doctors
 router.get("/", ensureAuthenticated, (req, res) => {
-    query = "SELECT * FROM doctor";
+    let query = "SELECT * FROM doctor";
     connection.query( query, function (error, results, fields) {
         if (error) 
             res.render("error"); 
@@ -19,13 +19,13 @@ router.get("/", ensureAuthenticated, (req, res) => {
 router.get("/enquiry/:name/:ssn", ensureAuthenticated, (req, res) => {
     let name = req.params.name;
     let ssn = req.params.ssn;
-    query = `SELECT * FROM doctor 
+    let query = `SELECT * FROM doctor 
             WHERE name = '${name}' AND ssn= '${ssn}'`;
     connection.query(query, function (error, results, fields) {
         if (error) 
             res.render("error");
         else
-        res.render("doctors/all_doctors", {res:results});
+            res.render("doctors/all_doctors", {res:results});
     });
 });
 
@@ -40,7 +40,7 @@ router.get("/add", ensureAuthenticated,  (req, res) => {
 router.post("/add", ensureAuthenticated, (req, res) => {
     let {ssn, name, specialty, yearsOfExperience} = req.body;
 
-    query = `INSERT INTO doctor VALUES \
+    let query = `INSERT INTO doctor VALUES \
             ('${ssn}','${name}','${specialty}','${yearsOfExperience}')`;
     connection.query(query, function (error, results, fields) {
         if (error) 
@@ -55,7 +55,7 @@ router.post("/add", ensureAuthenticated, (req, res) => {
 
 // Delete a Doctor (GET)
 router.get("/delete", ensureAuthenticated, (req, res) => {
-    query = "SELECT * FROM doctor";
+    let query = "SELECT * FROM doctor";
     connection.query( query, function (error, results, fields) {
         if (error) 
             res.render("error");
@@ -66,7 +66,7 @@ router.get("/delete", ensureAuthenticated, (req, res) => {
 
 router.get("/delete/:ssn", ensureAuthenticated, (req, res) => {
     let { ssn } = req.params;
-    query = `DELETE FROM doctor WHERE ssn= '${ssn}'`;
+    let query = `DELETE FROM doctor WHERE ssn= '${ssn}'`;
     connection.query(query, function (error, results, fields) {
         if (error) 
             res.render("error");
